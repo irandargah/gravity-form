@@ -14,12 +14,10 @@ class GFPersian_Gateway_IranDargah
     //Dont Change this Parameter if you are legitimate !!!
     public static $author = "HANNANStd";
 
-    
     private static $version = "2.3.0";
     private static $min_gravityforms_version = "1.9.10";
     private static $config = null;
 
-    
     public static function init()
     {
         if (!class_exists("GFPersian_Payments") || !defined('GF_PERSIAN_VERSION') || version_compare(GF_PERSIAN_VERSION, '2.3.1', '<')) {
@@ -82,7 +80,6 @@ class GFPersian_Gateway_IranDargah
         // --------------------------------------------------------------------------------------------
     }
 
-    
     public static function admin_notice_persian_gf()
     {
         $class = 'notice notice-error';
@@ -90,7 +87,6 @@ class GFPersian_Gateway_IranDargah
         printf('<div class="%1$s"><p>%2$s</p></div>', $class, $message);
     }
 
-    
     public static function admin_notice_gf_support()
     {
         $class = 'notice notice-error';
@@ -99,7 +95,7 @@ class GFPersian_Gateway_IranDargah
     }
 
     // #1
-    
+
     public static function gravityformsirandargah($form, $entry)
     {
         $irandargah = array(
@@ -115,7 +111,6 @@ class GFPersian_Gateway_IranDargah
         return apply_filters(self::$author . '_gf_irandargah_detail', apply_filters(self::$author . '_gf_gateway_detail', $irandargah, $form, $entry), $form, $entry);
     }
 
-    
     public static function add_permissions()
     {
         global $wp_roles;
@@ -128,13 +123,11 @@ class GFPersian_Gateway_IranDargah
         }
     }
 
-    
     public static function members_get_capabilities($caps)
     {
         return array_merge($caps, array("gravityforms_irandargah", "gravityforms_irandargah_uninstall"));
     }
 
-    
     private static function setup()
     {
         if (get_option("gf_irandargah_version") != self::$version) {
@@ -143,7 +136,6 @@ class GFPersian_Gateway_IranDargah
         }
     }
 
-    
     public static function tooltips($tooltips)
     {
         $tooltips["gateway_name"] = __("تذکر مهم : این قسمت برای نمایش به بازدید کننده می باشد و لطفا جهت جلوگیری از مشکل و تداخل آن را فقط یکبار تنظیم نمایید و از تنظیم مکرر آن خود داری نمایید .", "gravityformsirandargah");
@@ -151,7 +143,6 @@ class GFPersian_Gateway_IranDargah
         return $tooltips;
     }
 
-    
     public static function menu($menus)
     {
         $permission = "gravityforms_irandargah";
@@ -167,7 +158,6 @@ class GFPersian_Gateway_IranDargah
         return $menus;
     }
 
-    
     public static function toolbar($menu_items)
     {
         $menu_items[] = array(
@@ -178,7 +168,6 @@ class GFPersian_Gateway_IranDargah
         return $menu_items;
     }
 
-    
     private static function is_gravityforms_supported()
     {
         if (class_exists("GFCommon")) {
@@ -190,7 +179,6 @@ class GFPersian_Gateway_IranDargah
         }
     }
 
-    
     protected static function has_access($required_permission = 'gravityforms_irandargah')
     {
         if (!function_exists('wp_get_current_user')) {
@@ -200,13 +188,11 @@ class GFPersian_Gateway_IranDargah
         return GFCommon::current_user_can_any($required_permission);
     }
 
-    
     protected static function get_base_url()
     {
         return plugins_url(null, __FILE__);
     }
 
-    
     protected static function get_base_path()
     {
         $folder = basename(dirname(__FILE__));
@@ -214,7 +200,6 @@ class GFPersian_Gateway_IranDargah
         return WP_PLUGIN_DIR . "/" . $folder;
     }
 
-    
     public static function set_logging_supported($plugins)
     {
         $plugins[basename(dirname(__FILE__))] = "IranDargah";
@@ -222,7 +207,6 @@ class GFPersian_Gateway_IranDargah
         return $plugins;
     }
 
-    
     public static function uninstall()
     {
         if (!self::has_access("gravityforms_irandargah_uninstall")) {
@@ -237,7 +221,6 @@ class GFPersian_Gateway_IranDargah
         update_option('recently_activated', array($plugin => time()) + (array) get_option('recently_activated'));
     }
 
-    
     private static function is_irandargah_page()
     {
         $current_page = in_array(trim(strtolower(rgget("page"))), array('gf_irandargah', 'irandargah'));
@@ -247,7 +230,6 @@ class GFPersian_Gateway_IranDargah
         return $current_page || $current_view || $current_subview;
     }
 
-    
     public static function feed_page()
     {
         GFFormSettings::page_header();?>
@@ -262,7 +244,6 @@ class GFPersian_Gateway_IranDargah
 		<?php GFFormSettings::page_footer();
     }
 
-    
     public static function has_irandargah_condition($form, $config)
     {
 
@@ -337,7 +318,6 @@ class GFPersian_Gateway_IranDargah
         }
     }
 
-    
     public static function get_config_by_entry($entry)
     {
         $feed_id = gform_get_meta($entry["id"], "irandargah_feed_id");
@@ -347,7 +327,6 @@ class GFPersian_Gateway_IranDargah
         return apply_filters(self::$author . '_gf_irandargah_get_config_by_entry', apply_filters(self::$author . '_gf_gateway_get_config_by_entry', $return, $entry), $entry);
     }
 
-    
     public static function delay_posts($is_disabled, $form, $entry)
     {
 
@@ -360,7 +339,6 @@ class GFPersian_Gateway_IranDargah
         return $is_disabled;
     }
 
-    
     public static function delay_addons($is_delayed, $form, $entry, $slug)
     {
 
@@ -387,7 +365,6 @@ class GFPersian_Gateway_IranDargah
         return $is_delayed;
     }
 
-    
     private static function redirect_confirmation($url, $ajax)
     {
 
@@ -404,7 +381,6 @@ class GFPersian_Gateway_IranDargah
         return $confirmation;
     }
 
-    
     public static function get_active_config($form)
     {
 
@@ -433,7 +409,6 @@ class GFPersian_Gateway_IranDargah
         return self::$config;
     }
 
-    
     public static function irandargah_page()
     {
         $view = rgget("view");
@@ -446,7 +421,6 @@ class GFPersian_Gateway_IranDargah
         }
     }
 
-    
     private static function list_page($arg)
     {
         if (rgpost('action') == "delete") {
@@ -682,7 +656,6 @@ if ($arg == 'per-form') {
 		<?php
 }
 
-    
     public static function update_feed_active()
     {
         check_ajax_referer('gf_irandargah_update_feed_active', 'gf_irandargah_update_feed_active');
@@ -691,7 +664,6 @@ if ($arg == 'per-form') {
         GFPersian_DB_IranDargah::update_feed($id, $feed["form_id"], $_POST["is_active"], $feed["meta"]);
     }
 
-    
     private static function Return_URL($form_id, $entry_id)
     {
 
@@ -714,7 +686,6 @@ if ($arg == 'per-form') {
         return apply_filters(self::$author . '_irandargah_return_url', apply_filters(self::$author . '_gateway_return_url', $pageURL, $form_id, $entry_id, __CLASS__), $form_id, $entry_id, __CLASS__);
     }
 
-    
     public static function get_order_total($form, $entry)
     {
 
@@ -724,7 +695,6 @@ if ($arg == 'per-form') {
         return apply_filters(self::$author . '_irandargah_get_order_total', apply_filters(self::$author . '_gateway_get_order_total', $total, $form, $entry), $form, $entry);
     }
 
-    
     private static function get_mapped_field_list($field_name, $selected_field, $fields)
     {
         $str = "<select name='$field_name' id='$field_name'><option value=''></option>";
@@ -741,7 +711,6 @@ if ($arg == 'per-form') {
         return $str;
     }
 
-    
     private static function get_form_fields($form)
     {
         $fields = array();
@@ -760,7 +729,6 @@ if ($arg == 'per-form') {
         return $fields;
     }
 
-    --------------------------------------------
     //desc
     private static function get_customer_information_desc($form, $config = null)
     {
@@ -789,7 +757,6 @@ if ($arg == 'per-form') {
     }
     // ------------------------------------------------------------------------------------------------------------
 
-    
     public static function payment_entry_detail($form_id, $entry)
     {
 
@@ -934,7 +901,6 @@ echo __('درگاه پرداخت : ایران درگاه (غیر قابل ویر
         }
     }
 
-    
     public static function update_payment_entry($form, $entry_id)
     {
 
@@ -1039,7 +1005,7 @@ echo __('درگاه پرداخت : ایران درگاه (غیر قابل ویر
     }
 
     // #2
-    
+
     public static function settings_page()
     {
 
@@ -1191,7 +1157,6 @@ $uninstall_button = '<input  style="font-family:tahoma !important;" type="submit
 		<?php
 }
 
-    
     public static function get_gname()
     {
         $settings = get_option("gf_irandargah_settings");
@@ -1204,7 +1169,6 @@ $uninstall_button = '<input  style="font-family:tahoma !important;" type="submit
         return $gname;
     }
 
-    
     private static function get_merchent()
     {
         $settings = get_option("gf_irandargah_settings");
@@ -1213,7 +1177,6 @@ $uninstall_button = '<input  style="font-family:tahoma !important;" type="submit
         return trim($merchent);
     }
 
-    
     private static function get_server()
     {
         $settings = get_option("gf_irandargah_settings");
@@ -1223,7 +1186,7 @@ $uninstall_button = '<input  style="font-family:tahoma !important;" type="submit
     }
 
     // #3
-    
+
     private static function config_page()
     {
 
